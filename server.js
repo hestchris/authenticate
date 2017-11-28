@@ -3,13 +3,14 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var express = require('express');
 var sessions = require("client-sessions");
+var secrets = required('./secrets')
 
 var app = express();
 app.use(express.static('./public'))
 
 var sessionsMiddleware = sessions({
     cookieName: 'auth-cookie',  // front-end cookie name
-    secret: 'DR@G0N$',        // the encryption password : keep this safe
+    secret: secrets.cookieSecret,        // the encryption password : keep this safe
     requestKey: 'session',    // we can access our sessions at req.session,
     duration: (86400 * 1000) * 7, // one week in milliseconds
     cookie: {
